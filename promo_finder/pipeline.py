@@ -115,8 +115,11 @@ class PromoFinder:
                 except Exception as e:  # keep going; report it
                     return e
             groups = [eps_list[i:i + self.batch] for i in range(0, len(eps_list), self.batch)]
-            with ThreadPoolExecutor(max_workers=self.workers) as pool:   # episodes are independent
-                answers = list(pool.map(ask, groups))
+            if self.workers == 1:
+                answers = [ask(g) for g in groups]
+            else:
+                with ThreadPoolExecutor(max_workers=self.workers) as pool:   # episodes are independent
+                    answers = list(pool.map(ask, groups))
             per_ep_answers = []
             for group, ans in zip(groups, answers):
                 tag = f"{group[0].number:03d}" + (f"-{group[-1].number:03d}" if len(group) > 1 else "")

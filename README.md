@@ -4,9 +4,13 @@ Reads a microdrama's episode screenplays and returns ranked **20–60 second pro
 
 Built for the Kuku AI Generalist assignment (Problem 1).
 
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/iwdie/promo-finder/blob/main/promo_finder_colab.ipynb)
+
 ## Quick start
 
-**Colab (easiest):** open `promo_finder_colab.ipynb` in Google Colab and choose Runtime → Run all. It asks for the screenplay zip and an API key.
+**Web app:** `streamlit run app.py`, then upload a .zip of screenplays (or click *Try the built-in sample*). Choose a provider and paste a key in the sidebar for the AI passes, or leave it on *rules only*. Uploaded files are processed in a temp folder and deleted after the run.
+
+**Colab:** click the badge above, then Runtime → Run all. It asks for the screenplay zip and an API key.
 
 **Local:**
 ```bash
@@ -72,6 +76,11 @@ Finding the promos is the job; cutting them is the editor's. To save them a step
 | `rejected.json` | AI picks that failed validation, with the reason |
 | `raw_llm/` | unedited model replies |
 | `run_meta.json` | model, counts, AI/rules agreement, calls and approximate tokens |
+
+## Deploying the web app (free)
+1. Go to [share.streamlit.io](https://share.streamlit.io) and sign in with GitHub.
+2. **Create app** → repo `iwdie/promo-finder`, branch `main`, main file `app.py` → **Deploy**.
+No secrets are needed: each user pastes their own API key, or uses rules-only mode.
 
 ## Notes
 - Do not commit the Kuku input pack or its outputs to a public repo; they are confidential. `.gitignore` excludes them.
