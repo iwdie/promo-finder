@@ -8,6 +8,11 @@ Examples
   python find_promos.py --input ./scripts --out ./outputs --provider openai --base-url https://YOUR-API/v1 --model YOUR-MODEL
 """
 import argparse
+import os
+import shutil
+import tempfile
+import zipfile
+from pathlib import Path
 
 from promo_finder.llm import LLM
 from promo_finder.pipeline import PromoFinder
@@ -23,9 +28,34 @@ def parse_eps(s: str | None):
     return out
 
 
+KEY_ENV = {"gemini": ("GEMINI_API_KEY", "GOOGLE_API_KEY"), "groq": ("GROQ_API_KEY",), "openai": ("OPENAI_API_KEY",),
+           "openrouter": ("OPENROUTER_API_KEY",), "anthropic": ("ANTHROPIC_API_KEY",)}
+
+
+def prepare_input(path: str) -> str:
+    """Accept a folder, a .zip of screenplays, or a single .txt file."""
+    p = Path(path)
+    if not p.exists():
+        raise SystemExit(f"Input not found: {path}")
+    if p.is_dir():
+        return str(p)
+    tmp = Path(tempfile.mkdtemp(prefix="promo_input_"))
+    if p.suffix.lower() == ".zip":
+        with zipfile.ZipFile(p) as z:
+            for m in z.namelist():
+                if m.lower().endswith(".txt") and not m.startswith("__MACOSX"):
+                    target = tmp / Path(m).name
+                    target.write_bytes(z.read(m))
+    elif p.suffix.lower() == ".txt":
+        shutil.copy(p, tmp / p.name)
+    else:
+        raise SystemExit("Input must be a folder, a .zip, or a .txt screenplay")
+    return str(tmp)
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--input", required=True, help="folder (or unzipped pack) of episode .txt screenplays")
+    ap.add_argument("--input", required=True, help="folder of episode .txt screenplays, a .zip of them, or one .txt file")
     ap.add_argument("--out", default="outputs", help="output folder")
     ap.add_argument("--provider", default="gemini", help="gemini | groq | openai | openrouter | anthropic | ollama | mock | none")
     ap.add_argument("--model", default=None, help="model name (default depends on provider)")
@@ -34,20 +64,27 @@ def main():
     ap.add_argument("--per-episode", type=int, default=3, help="max promos per episode")
     ap.add_argument("--montages", type=int, default=5, help="max cross-episode promos (0 = off)")
     ap.add_argument("--no-judge", action="store_true", help="skip the blind AI re-scoring pass")
-    ap.add_argument("--rpm", type=float, default=8, help="max AI calls per minute (free tiers are rate limited)")
+    ap.add_argument("--rpm", type=float, default=10, help="max AI calls per minute (free tiers are rate limited)")
     ap.add_argument("--workers", type=int, default=1, help="parallel AI calls for episodes (raise if your quota allows)")
-    ap.add_argument("--batch", type=int, default=1, help="episodes per AI call (e.g. 5 to stay inside a 20-requests/day free tier)")
-    ap.add_argument("--judge-batch", type=int, default=5, help="promos per judge call")
+    ap.add_argument("--batch", type=int, default=5, help="episodes per AI call (e.g. 5 to stay inside a 20-requests/day free tier)")
+    ap.add_argument("--judge-batch", type=int, default=13, help="promos per judge call")
     ap.add_argument("--show", default=None, help="show name for prompts/report")
     a = ap.parse_args()
 
+    src = prepare_input(a.input)
+    provider = a.provider.lower()
+    env = KEY_ENV.get(provider)
+    if env and not any(os.environ.get(e) for e in env) and not a.base_url:
+        print(f"WARNING: no {env[0]} set -> running the free rules-only mode. Set the key to add the AI passes.")
+        provider = "none"
+
     llm = None
-    if a.provider.lower() != "none":
-        llm = LLM(a.provider, a.model, base_url=a.base_url, min_interval=60.0 / a.rpm if a.rpm else 0.0,
-                  cache_dir=".cache" if a.provider != "mock" else None)
+    if provider != "none":
+        llm = LLM(provider, a.model, base_url=a.base_url, min_interval=60.0 / a.rpm if a.rpm else 0.0,
+                  cache_dir=".cache" if provider != "mock" else None)
     PromoFinder(llm, per_episode=a.per_episode, montages=a.montages, judge=not a.no_judge,
                 workers=a.workers, batch=a.batch, judge_batch=a.judge_batch).run(
-        a.input, a.out, episodes=parse_eps(a.episodes), show_name=a.show)
+        src, a.out, episodes=parse_eps(a.episodes), show_name=a.show or Path(a.input).stem)
 
 
 if __name__ == "__main__":

@@ -4,7 +4,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent
 FILES = ["promo_finder/__init__.py", "promo_finder/parser.py", "promo_finder/rules.py", "promo_finder/llm.py",
-         "promo_finder/prompts.py", "promo_finder/pipeline.py", "promo_finder/mock.py", "find_promos.py"]
+         "promo_finder/prompts.py", "promo_finder/pipeline.py", "promo_finder/mock.py", "find_promos.py", "cut_clips.py"]
 
 md = lambda s: {"cell_type": "markdown", "metadata": {}, "source": s.strip().splitlines(True)}
 code = lambda s, hide=False: {"cell_type": "code", "metadata": ({"cellView": "form"} if hide else {}),
@@ -96,6 +96,10 @@ df[["rank", "source", "segments", "duration_s", "hook", "cliffhanger", "why", "f
     code("""
 from IPython.display import Markdown
 Markdown(open(f"{out}/report.md").read()[:20000])
+"""),
+    md("## 6. Cut list for the editor\nWrites `cut_list.csv` + `cut_commands.sh` for the top 10. Add `--videos <folder>` to cut real clips if you have the episode videos."),
+    code("""
+!python cut_clips.py --promos {out}/promos.json --out outputs/clips --top 10
 """),
     code("""
 !cd outputs && zip -qr ../promo_outputs.zip . && cd ..

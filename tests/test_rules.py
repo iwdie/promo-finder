@@ -50,3 +50,24 @@ def test_baseline_finds_the_slap():
 
 def test_extract_json_handles_chatter():
     assert extract_json('Sure!\n```json\n{"a": "x \\" }", "b": 2}\n```') == {"a": 'x " }', "b": 2}
+
+
+def test_zip_and_txt_inputs(tmp_path):
+    import zipfile
+    from find_promos import prepare_input
+    z = tmp_path / "pack.zip"
+    with zipfile.ZipFile(z, "w") as f:
+        f.write(SAMPLE / "episode-001-sample.txt", "show/episode-001-sample.txt")
+    assert len(load_show(prepare_input(str(z)))) == 1
+    assert len(load_show(prepare_input(str(SAMPLE / "episode-001-sample.txt")))) == 1
+
+
+def test_cut_list_without_videos(tmp_path):
+    import json, subprocess, sys
+    from promo_finder.pipeline import PromoFinder
+    PromoFinder(None, log=lambda *a: None).run(str(SAMPLE), str(tmp_path / "out"))
+    root = Path(__file__).parent.parent
+    subprocess.run([sys.executable, str(root / "cut_clips.py"), "--promos", str(tmp_path / "out" / "promos.json"),
+                    "--out", str(tmp_path / "clips")], check=True, capture_output=True)
+    assert "EPISODE_1.mp4" in (tmp_path / "clips" / "cut_commands.sh").read_text()
+    assert (tmp_path / "clips" / "cut_list.csv").read_text().count("\n") >= 2

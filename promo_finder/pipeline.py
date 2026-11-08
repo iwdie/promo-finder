@@ -81,7 +81,8 @@ class PromoFinder:
         if episodes:
             eps_list = [e for e in eps_list if e.number in set(episodes)]
         if not eps_list:
-            raise SystemExit(f"No screenplays found in {input_dir}")
+            raise SystemExit(f"No screenplays with timestamped lines found in {input_dir}. Expected blocks like "
+                             f"'**NAME (Delivery):**' followed by 'Start: (00:01.00) | End: (00:03.00)'.")
         eps = {e.number: e for e in eps_list}
         cuts = {n: cut_points(e) for n, e in eps.items()}
         show = show_name or Path(input_dir).name
