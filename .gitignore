@@ -1,0 +1,8 @@
+.cache/
+__pycache__/
+outputs*/
+input/
+input_pack/
+*.zip
+# never commit Kuku screenplays (confidential)
+data/

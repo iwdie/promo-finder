@@ -1,0 +1,110 @@
+EPISODE NUMBER: Episode 1
+EPISODE LOGLINE: (Synthetic sample, not Kuku content) A waitress is fired in front of the whole restaurant, until the quiet customer in the corner stands up.
+CONTINUITY NOTES: Made-up test file so the repo runs without the confidential input pack.
+
+--- SCRIPT START ---
+
+SCENE 01
+Scene heading: INT. RESTAURANT – NIGHT
+Scene start: 00:00.00
+Scene end: 01:05.00
+
+Actions and dialogue:
+
+**CAMERA:**
+Start: (00:00.00) | End: (00:04.00)
+Wide establishing shot of a busy upscale restaurant.
+
+**CAMERA:**
+Start: (00:04.00) | End: (00:07.00)
+Close-up as the manager's hand slaps a tray out of Mia's hands; glasses shatter.
+
+**ACTION:**
+Start: (00:04.20) | End: (00:06.00)
+The manager slaps the tray away and wine glasses shatter on the marble floor.
+
+**MANAGER (Furious):**
+Start: (00:05.00) | End: (00:06.80)
+"You clumsy fool!"
+
+**CAMERA:**
+Start: (00:07.00) | End: (00:12.00)
+Medium shot of Mia kneeling among the shards.
+
+**MIA (Shaking):**
+Start: (00:07.50) | End: (00:10.00)
+"He pushed me, sir. I swear it."
+
+**CAMERA:**
+Start: (00:12.00) | End: (00:18.00)
+Close-up on the manager sneering.
+
+**MANAGER (Cold):**
+Start: (00:12.20) | End: (00:16.50)
+"You're fired. Get out before I call the police."
+
+**CAMERA:**
+Start: (00:18.00) | End: (00:24.00)
+Diners whispering and filming on their phones.
+
+**MIA (Desperate):**
+Start: (00:19.00) | End: (00:23.00)
+"Please, my mother's surgery is next week. I need this job."
+
+**CAMERA:**
+Start: (00:24.00) | End: (00:30.00)
+Close-up on a rich customer laughing.
+
+**RICH CUSTOMER (Mocking):**
+Start: (00:24.50) | End: (00:28.50)
+"Then you should have learned to carry a tray."
+
+**CAMERA:**
+Start: (00:30.00) | End: (00:36.00)
+Slow push-in on a quiet man in a plain jacket in the corner booth, setting down his coffee.
+
+**ACTION:**
+Start: (00:31.00) | End: (00:35.00)
+The quiet man stands up; the room falls silent.
+
+**CAMERA:**
+Start: (00:36.00) | End: (00:42.00)
+Medium shot of the quiet man walking toward the manager.
+
+**QUIET MAN (Calm, Menacing):**
+Start: (00:37.00) | End: (00:41.00)
+"Do you know who owns this building?"
+
+**CAMERA:**
+Start: (00:42.00) | End: (00:47.00)
+Close-up on the manager's smirk faltering.
+
+**MANAGER (Uneasy):**
+Start: (00:42.50) | End: (00:45.00)
+"Who the hell are you?"
+
+**CAMERA:**
+Start: (00:47.00) | End: (00:53.00)
+The quiet man takes out a black card and places it on the table.
+
+**QUIET MAN (Cold):**
+Start: (00:48.00) | End: (00:52.00)
+"The man who just bought it. And you're fired."
+
+**CAMERA:**
+Start: (00:53.00) | End: (00:58.00)
+Close-up on Mia staring at the stranger in shock.
+
+**MIA (Whispering):**
+Start: (00:53.50) | End: (00:56.00)
+"Why would you help me?"
+
+**SOUND FX:**
+Start: (00:58.00) | End: (01:05.00)
+Ominous string sting as the screen cuts to black.
+
+**CAMERA:**
+Start: (00:58.00) | End: (01:05.00)
+Cut to black.
+
+--- SCRIPT END ---
