@@ -27,6 +27,10 @@ OPENAI_COMPATIBLE = {
     "openrouter": ("https://openrouter.ai/api/v1", "OPENROUTER_API_KEY"),
     "ollama": ("http://localhost:11434/v1", ""),
 }
+# free-tier models tried in order when one runs out of daily quota
+FALLBACKS = {
+    "gemini": ["gemini-3.5-flash-lite", "gemini-3.1-flash-lite", "gemini-flash-lite-latest", "gemma-4-31b-it"],
+}
 DEFAULT_MODELS = {
     "gemini": "gemini-3.5-flash",
     "groq": "llama-3.3-70b-versatile",
@@ -41,9 +45,15 @@ DEFAULT_MODELS = {
 class LLM:
     def __init__(self, provider: str = "gemini", model: str | None = None, base_url: str | None = None,
                  api_key: str | None = None, temperature: float = 0.4, cache_dir: str | None = ".cache",
-                 min_interval: float = 0.0, max_retries: int = 5):
+                 min_interval: float = 0.0, max_retries: int = 5, fallback_models: list[str] | None = None):
         self.provider = provider.lower()
         self.model = model or DEFAULT_MODELS.get(self.provider, "")
+        # when a model's daily quota is used up, move to the next one (each has its own free quota)
+        chain = [self.model] + list(FALLBACKS.get(self.provider, []) if fallback_models is None else fallback_models)
+        self.models = list(dict.fromkeys(m for m in chain if m))
+        self.exhausted: list[str] = []
+        self.quota_events: list[str] = []
+        self.used_models: list[str] = []
         self.base_url = base_url
         self.api_key = api_key
         self.temperature = temperature
@@ -81,16 +91,28 @@ class LLM:
             if wait > 0:
                 time.sleep(wait)
             self._last = time.time()
-        for attempt in range(self.max_retries):
+        attempt = 0
+        while True:
+            if self.model in self.exhausted:
+                if not self._next_model():
+                    raise QuotaExhausted(f"daily quota used up for: {', '.join(self.exhausted)}")
+                continue
             try:
                 text = self._call(system, user)
+                if self.model not in self.used_models:
+                    self.used_models.append(self.model)
                 break
+            except QuotaExhausted as e:
+                self.exhausted.append(self.model)
+                self.quota_events.append(f"{self.model}: {e}")
+                print(f"  [llm] {self.model}: daily quota used up")
             except RetryableError as e:
+                attempt += 1
+                if attempt >= self.max_retries:
+                    raise RuntimeError(f"{self.name}: gave up after {self.max_retries} retries ({e})")
                 delay = e.retry_after or min(60, 5 * 2 ** attempt)
                 print(f"  [llm] {e} -> retry in {delay:.0f}s")
                 time.sleep(delay)
-        else:
-            raise RuntimeError(f"{self.name}: gave up after {self.max_retries} retries")
         self.calls += 1
         self.chars_in += len(system) + len(user)
         self.chars_out += len(text)
@@ -98,6 +120,14 @@ class LLM:
             self.cache.mkdir(parents=True, exist_ok=True)
             (self.cache / f"{key}.txt").write_text(text, encoding="utf-8")
         return text
+
+    def _next_model(self) -> bool:
+        for m in self.models:
+            if m not in self.exhausted:
+                print(f"  [llm] switching to {m}")
+                self.model = m
+                return True
+        return False
 
     def complete_json(self, system: str, user: str) -> tuple[dict, str]:
         """Returns (parsed_json, raw_text). One repair retry if the JSON is broken."""
@@ -146,6 +176,10 @@ class LLM:
         return r["choices"][0]["message"]["content"]
 
 
+class QuotaExhausted(Exception):
+    """The provider's daily/free quota is used up for this model."""
+
+
 class RetryableError(Exception):
     def __init__(self, msg: str, retry_after: float | None = None):
         super().__init__(msg)
@@ -157,9 +191,19 @@ def _post(url: str, body: dict, headers: dict) -> dict:
         r = requests.post(url, json=body, headers={"Content-Type": "application/json", **headers}, timeout=600)
     except requests.RequestException as e:
         raise RetryableError(f"network error: {e}")
-    if r.status_code in (429, 500, 502, 503, 504):
+    if r.status_code == 429:
+        text = r.text
+        m = re.search(r'"retryDelay"\s*:\s*"(\d+(?:\.\d+)?)s"', text)
+        wait = float(m.group(1)) if m else None
         ra = r.headers.get("retry-after")
-        raise RetryableError(f"HTTP {r.status_code}", float(ra) if ra and ra.replace('.', '', 1).isdigit() else None)
+        if wait is None and ra and ra.replace(".", "", 1).isdigit():
+            wait = float(ra)
+        # a per-day limit (or a wait longer than 2 minutes) will not clear by retrying
+        if re.search(r"per ?day|PerDay|daily", text, re.I) or (wait or 0) > 120:
+            raise QuotaExhausted("daily limit reached")
+        raise RetryableError("HTTP 429 (rate limit)", wait)
+    if r.status_code in (500, 502, 503, 504):
+        raise RetryableError(f"HTTP {r.status_code}")
     if r.status_code >= 400:
         raise RuntimeError(f"HTTP {r.status_code}: {r.text[:400]}")
     return r.json()

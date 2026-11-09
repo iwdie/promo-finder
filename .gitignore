@@ -6,3 +6,4 @@ input_pack/
 *.zip
 # never commit Kuku screenplays (confidential)
 data/
+.streamlit/secrets.toml

@@ -4,11 +4,13 @@ Reads a microdrama's episode screenplays and returns ranked **20–60 second pro
 
 Built for the Kuku AI Generalist assignment (Problem 1).
 
+**Live app: https://kuku-promo-finder-naveen.streamlit.app** (upload screenplays, or click *Try the built-in sample*)
+
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/iwdie/promo-finder/blob/main/promo_finder_colab.ipynb)
 
 ## Quick start
 
-**Web app:** `streamlit run app.py`, then upload a .zip of screenplays (or click *Try the built-in sample*). Choose a provider and paste a key in the sidebar for the AI passes, or leave it on *rules only*. Uploaded files are processed in a temp folder and deleted after the run.
+**Web app:** `streamlit run app.py`, then upload a .zip of screenplays (or click *Try the built-in sample*, 3 made-up episodes). Choose a provider and paste a key in the sidebar for the AI passes, or leave it on *rules only*. Results come in three tabs: a ranked table where an editor can tick **Would post** and download the graded sheet; a **detail view** per promo (script excerpt, rules / AI / blind-judge scores, code fixes, where the clip sits in the episode); and all downloads, including the ffmpeg cut list. Uploaded files are processed in a temp folder and deleted after the run.
 
 **Colab:** click the badge above, then Runtime → Run all. It asks for the screenplay zip and an API key.
 
@@ -81,6 +83,7 @@ Finding the promos is the job; cutting them is the editor's. To save them a step
 1. Go to [share.streamlit.io](https://share.streamlit.io) and sign in with GitHub.
 2. **Create app** → repo `iwdie/promo-finder`, branch `main`, main file `app.py` → **Deploy**.
 No secrets are needed: each user pastes their own API key, or uses rules-only mode.
+Built-in key (recommended): in the app's **Settings → Secrets**, add `GEMINI_API_KEY = "..."`. The app then runs the AI passes for everyone with no setup (the key is never shown). When a free model's daily quota runs out it switches to the next free model, and as a last resort shows rules-only results with a note. AI replies are cached on the server, so re-running the same files is instant and free.
 
 ## Notes
 - Do not commit the Kuku input pack or its outputs to a public repo; they are confidential. `.gitignore` excludes them.

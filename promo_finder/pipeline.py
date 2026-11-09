@@ -318,7 +318,8 @@ class PromoFinder:
 
         ai = [p for p in ranked if p["source"] == "ai"]
         meta = {
-            "show": show, "episodes": len(eps), "model": self.llm.name if self.llm else "rules-only (no AI)",
+            "show": show, "episodes": len(eps), "model": (f"{self.llm.provider}:{'+'.join(self.llm.used_models)}" if self.llm and self.llm.used_models
+                      else (self.llm.name if self.llm else "rules-only (no AI)")),
             "runtime_s": round(secs, 1), "promos": len(ranked),
             "by_source": {s: sum(1 for p in ranked if p["source"] == s) for s in ("rules", "ai", "ai-montage")},
             "rejected": len(rejected),
@@ -326,6 +327,9 @@ class PromoFinder:
             "ai_rules_agreement": round(sum(1 for p in ai if p.get("also_found_by_rules")) / len(ai), 2) if ai else None,
             "llm_calls": self.llm.calls if self.llm else 0,
             "llm_calls_served_from_cache": self.llm.cache_hits if self.llm else 0,
+            "models_used": self.llm.used_models if self.llm else [],
+            "quota_exhausted": self.llm.exhausted if self.llm else [],
+            "ai_calls_failed": sum(1 for r in rejected if "LLM error" in str(r.get("reason", ""))),
             "approx_tokens_in": (self.llm.chars_in // 4) if self.llm else 0,
             "approx_tokens_out": (self.llm.chars_out // 4) if self.llm else 0,
         }

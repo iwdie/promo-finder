@@ -1,0 +1,106 @@
+EPISODE NUMBER: Episode 2
+EPISODE LOGLINE: (Synthetic sample, not Kuku content) The fired manager returns with the restaurant's investor, who claims the quiet stranger is a fraud, until Mia finds the contract in his coat.
+CONTINUITY NOTES: Made-up test file so the app can be tried without the confidential input pack.
+
+--- SCRIPT START ---
+
+SCENE 01
+Scene heading: INT. RESTAURANT – NEXT MORNING
+Scene start: 00:00.00
+Scene end: 01:02.00
+
+Actions and dialogue:
+
+**CAMERA:**
+Start: (00:00.00) | End: (00:03.00)
+The glass doors burst open; the fired manager storms in beside a woman in a white suit.
+
+**MANAGER (Triumphant):**
+Start: (00:00.50) | End: (00:02.80)
+"There he is. The fraud."
+
+**CAMERA:**
+Start: (00:03.00) | End: (00:08.00)
+Medium shot of the quiet man, Leo, calmly wiping a table.
+
+**INVESTOR (Icy):**
+Start: (00:03.50) | End: (00:07.50)
+"This building belongs to my family. You bought nothing."
+
+**CAMERA:**
+Start: (00:08.00) | End: (00:13.00)
+Close-up on Mia, holding a tray, frozen.
+
+**MIA (Whispering):**
+Start: (00:08.50) | End: (00:11.50)
+"Is that true? Did you lie to me?"
+
+**CAMERA:**
+Start: (00:13.00) | End: (00:19.00)
+Leo looks at Mia, silent, then at the investor.
+
+**LEO (Calm):**
+Start: (00:13.50) | End: (00:17.50)
+"Ask her who signed the sale last night."
+
+**CAMERA:**
+Start: (00:19.00) | End: (00:25.00)
+The investor laughs and throws a folder onto the table.
+
+**ACTION:**
+Start: (00:19.50) | End: (00:22.00)
+The folder slams onto the table; papers scatter across the floor.
+
+**INVESTOR (Mocking):**
+Start: (00:22.00) | End: (00:24.80)
+"Here is the deed. Your name is nowhere."
+
+**CAMERA:**
+Start: (00:25.00) | End: (00:31.00)
+Diners raise their phones again, filming.
+
+**MANAGER (Gloating):**
+Start: (00:25.50) | End: (00:30.00)
+"Call the police. Both of them go out in handcuffs."
+
+**CAMERA:**
+Start: (00:31.00) | End: (00:37.00)
+Mia kneels to pick up the papers and sees a folded contract in Leo's coat pocket.
+
+**ACTION:**
+Start: (00:31.50) | End: (00:36.00)
+Mia slips the contract out of the coat; a red wax seal flashes.
+
+**CAMERA:**
+Start: (00:37.00) | End: (00:43.00)
+Close-up on the seal: the investor's own family crest.
+
+**MIA (Stunned):**
+Start: (00:38.00) | End: (00:41.50)
+"This is your seal. You signed it."
+
+**CAMERA:**
+Start: (00:43.00) | End: (00:49.00)
+The investor's face drains of color.
+
+**INVESTOR (Shaking):**
+Start: (00:43.50) | End: (00:47.50)
+"Where did you get that? Who are you?"
+
+**CAMERA:**
+Start: (00:49.00) | End: (00:55.00)
+Leo steps forward and takes off his cheap watch, revealing a scar on his wrist.
+
+**LEO (Low, Dangerous):**
+Start: (00:49.50) | End: (00:54.00)
+"You really don't remember what your family did to mine?"
+
+**SOUND FX:**
+Start: (00:55.00) | End: (01:02.00)
+Ominous string sting as the screen cuts to black.
+
+**CAMERA:**
+Start: (00:55.00) | End: (01:02.00)
+Cut to black.
+
+--- SCRIPT END ---

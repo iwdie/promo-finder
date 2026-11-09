@@ -1,0 +1,121 @@
+EPISODE NUMBER: Episode 3
+EPISODE LOGLINE: (Synthetic sample, not Kuku content) Mia learns Leo's real name and why he came back; the investor sends men to the restaurant at closing time.
+CONTINUITY NOTES: Made-up test file so the app can be tried without the confidential input pack.
+
+--- SCRIPT START ---
+
+SCENE 01
+Scene heading: INT. RESTAURANT KITCHEN – NIGHT
+Scene start: 00:00.00
+Scene end: 00:40.00
+
+Actions and dialogue:
+
+**CAMERA:**
+Start: (00:00.00) | End: (00:04.00)
+Wide establishing shot of the empty kitchen, steam rising from a pot.
+
+**ACTION:**
+Start: (00:01.00) | End: (00:04.00)
+Mia scrubs a pan alone, exhausted.
+
+**CAMERA:**
+Start: (00:04.00) | End: (00:10.00)
+Leo leans in the doorway.
+
+**LEO (Quiet):**
+Start: (00:04.50) | End: (00:08.50)
+"My name isn't Leo. It's Leonardo Vance."
+
+**CAMERA:**
+Start: (00:10.00) | End: (00:16.00)
+Close-up on Mia dropping the pan into the sink.
+
+**ACTION:**
+Start: (00:10.20) | End: (00:11.50)
+The pan crashes into the sink, splashing water.
+
+**MIA (Shocked):**
+Start: (00:11.50) | End: (00:15.00)
+"Vance? The family that burned down twenty years ago?"
+
+**CAMERA:**
+Start: (00:16.00) | End: (00:23.00)
+Leo nods slowly.
+
+**LEO (Bitter):**
+Start: (00:16.50) | End: (00:21.50)
+"Burned down by the people who own this building."
+
+**CAMERA:**
+Start: (00:23.00) | End: (00:30.00)
+Mia steps back, scared.
+
+**MIA (Trembling):**
+Start: (00:23.50) | End: (00:27.50)
+"Then why help me? I'm nobody."
+
+**CAMERA:**
+Start: (00:30.00) | End: (00:36.00)
+Leo holds out an old photo of a little girl in a red coat.
+
+**LEO (Soft):**
+Start: (00:30.50) | End: (00:35.00)
+"Because you pulled me out of that fire."
+
+**CAMERA:**
+Start: (00:36.00) | End: (00:40.00)
+Close-up on Mia staring at the photo of herself.
+
+SCENE 02
+Scene heading: EXT. RESTAURANT BACK DOOR – NIGHT
+Scene start: 00:40.00
+Scene end: 01:15.00
+
+Actions and dialogue:
+
+**CAMERA:**
+Start: (00:40.00) | End: (00:45.00)
+Headlights sweep across the alley; three men in black step out of a van.
+
+**THUG (Menacing):**
+Start: (00:41.00) | End: (00:44.50)
+"Boss says nobody leaves tonight."
+
+**CAMERA:**
+Start: (00:45.00) | End: (00:52.00)
+Mia locks the back door, hands shaking.
+
+**MIA (Panicked):**
+Start: (00:45.50) | End: (00:49.50)
+"Leo, they're here! There are three of them!"
+
+**CAMERA:**
+Start: (00:52.00) | End: (00:58.00)
+The door handle rattles violently.
+
+**ACTION:**
+Start: (00:52.50) | End: (00:57.00)
+A crowbar smashes through the small window in the door; glass explodes inward.
+
+**CAMERA:**
+Start: (00:58.00) | End: (01:05.00)
+Leo pushes Mia behind him and picks up a kitchen knife.
+
+**LEO (Cold):**
+Start: (00:58.50) | End: (01:03.00)
+"Stay behind me. Whatever you hear, don't open your eyes."
+
+**CAMERA:**
+Start: (01:05.00) | End: (01:10.00)
+The door bursts open.
+
+**SOUND FX:**
+Start: (01:08.00) | End: (01:15.00)
+A gunshot echoes, then silence and an ominous drone.
+
+**CAMERA:**
+Start: (01:10.00) | End: (01:15.00)
+Cut to black.
+
+--- SCRIPT END ---
